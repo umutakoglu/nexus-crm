@@ -26,18 +26,41 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserModel?> signInWithEmailAndPassword(String email, String password) async {
+  Future<UserModel?> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      
+
       if (userCredential.user != null) {
-         final doc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
-         if (doc.exists && doc.data() != null) {
-           return UserModel.fromJson(doc.data()!);
-         }
+        final uid = userCredential.user!.uid;
+
+        // Special check for the main admin
+        if (email == 'admin@uakoglu.com' ||
+            uid == 'wtZ0T2DBqUhnclLFD7OuOPVcW963') {
+          // Force update/create admin user in Firestore
+          final adminUser = UserModel(
+            id: uid,
+            email: email,
+            displayName: 'Admin', // Default name
+            role: UserRole.admin,
+            createdAt: DateTime.now(),
+            department: 'Administration',
+          );
+          await _firestore
+              .collection('users')
+              .doc(uid)
+              .set(adminUser.toJson(), SetOptions(merge: true));
+        }
+
+        final doc = await _firestore.collection('users').doc(uid).get();
+        if (doc.exists && doc.data() != null) {
+          return UserModel.fromJson(doc.data()!);
+        }
       }
       return null;
     } catch (e) {
@@ -49,15 +72,15 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signOut() {
     return _firebaseAuth.signOut();
   }
-  
+
   @override
   Future<UserModel?> getCurrentUser() async {
     final user = _firebaseAuth.currentUser;
     if (user != null) {
-       final doc = await _firestore.collection('users').doc(user.uid).get();
-       if (doc.exists && doc.data() != null) {
-         return UserModel.fromJson(doc.data()!);
-       }
+      final doc = await _firestore.collection('users').doc(user.uid).get();
+      if (doc.exists && doc.data() != null) {
+        return UserModel.fromJson(doc.data()!);
+      }
     }
     return null;
   }

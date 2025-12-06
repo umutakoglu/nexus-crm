@@ -1,4 +1,4 @@
-import 'package:crm/features/auth/presentation/login_screen.dart';
+import 'package:crm/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,11 +7,7 @@ void main() {
   testWidgets('LoginScreen UI Test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: LoginScreen(),
-        ),
-      ),
+      const ProviderScope(child: MaterialApp(home: LoginScreen())),
     );
 
     // Verify that the title is present
