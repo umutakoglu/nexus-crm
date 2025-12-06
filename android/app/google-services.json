@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "603997412584",
+    "project_id": "nexus-crm-hr",
+    "storage_bucket": "nexus-crm-hr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603997412584:android:662242457e0e5b9a40bd5d",
+        "android_client_info": {
+          "package_name": "com.example.crm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAykoSH51qI98ybCUf-qbMt9NAv-Zy788M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
