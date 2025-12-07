@@ -58,7 +58,11 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Müşteri başarıyla kaydedildi')),
+          const SnackBar(
+            content: Text('Müşteri başarıyla kaydedildi ✅'),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+          ),
         );
         Navigator.pop(context);
       }

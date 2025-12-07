@@ -1,5 +1,6 @@
 import 'package:crm/features/crm/models/customer_model.dart';
 import 'package:crm/features/crm/screens/add_customer_screen.dart';
+import 'package:crm/features/crm/screens/customer_detail_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +76,13 @@ class CrmHomeScreen extends StatelessWidget {
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                   onTap: () {
-                    // Detay sayfasına git (sonra eklenecek)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CustomerDetailScreen(customer: customer),
+                      ),
+                    );
                   },
                 ),
               );

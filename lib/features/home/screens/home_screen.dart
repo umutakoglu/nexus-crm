@@ -1,5 +1,6 @@
 import 'package:crm/features/auth/screens/login_screen.dart';
 import 'package:crm/features/crm/screens/crm_home_screen.dart';
+import 'package:crm/features/hr/screens/hr_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +82,14 @@ class HomeScreen extends StatelessWidget {
                       title: 'İK & Personel',
                       icon: Icons.people,
                       color: const Color(0xFF000080), // Navy Blue
-                      onTap: () => print('İK modülü açılıyor'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HrHomeScreen(),
+                          ),
+                        );
+                      },
                     ),
                     _buildDashboardCard(
                       context,
