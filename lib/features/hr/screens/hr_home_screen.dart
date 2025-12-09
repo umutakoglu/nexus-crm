@@ -144,9 +144,17 @@ class _HrHomeScreenState extends State<HrHomeScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('İK & Personel'),
+        title: const Text(
+          'İK & Personel',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF000080), // Lacivert
+        iconTheme: const IconThemeData(color: Colors.white),
         bottom: TabBar(
           controller: _tabController,
+          labelColor: Colors.amber, // Seçili sekme rengi
+          unselectedLabelColor: Colors.white70, // Seçili olmayan sekme
+          indicatorColor: Colors.amber,
           tabs: const [
             Tab(icon: Icon(Icons.people), text: 'Personel Listesi'),
             Tab(
@@ -204,17 +212,27 @@ class _HrHomeScreenState extends State<HrHomeScreen>
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Column(
-                        // Changed to Column for manager name
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('${employee.role} • ${employee.department}'),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${employee.role} • ${employee.department}',
+                            style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           if (employee.managerName != null &&
                               employee.managerName!.isNotEmpty)
-                            Text(
-                              'Yöneticisi: ${employee.managerName}',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 12,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 2.0),
+                              child: Text(
+                                'Yöneticisi: ${employee.managerName}',
+                                style: const TextStyle(
+                                  color: Colors.indigo,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                         ],
@@ -322,29 +340,47 @@ class _HrHomeScreenState extends State<HrHomeScreen>
                               const Icon(
                                 Icons.calendar_today,
                                 size: 16,
-                                color: Colors.grey,
+                                color: Color(0xFF000080),
                               ),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 6),
                               Text(
                                 '${dateFormat.format(leave.startDate)} - ${dateFormat.format(leave.endDate)}',
+                                style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 '(${leave.durationInDays} Gün)',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 6),
                           Text(
                             'Tür: ${leave.type}',
-                            style: const TextStyle(fontStyle: FontStyle.italic),
+                            style: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                            ),
                           ),
                           if (leave.description.isNotEmpty) ...[
-                            const SizedBox(height: 4),
-                            Text('Not: ${leave.description}'),
+                            const SizedBox(height: 6),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'Not: ${leave.description}',
+                                style: const TextStyle(color: Colors.black87),
+                              ),
+                            ),
                           ],
 
                           // Onay/Red Butonları (Sadece Pending ve Yetkili ise) // Changed comment
